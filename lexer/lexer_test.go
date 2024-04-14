@@ -26,6 +26,10 @@ if (5 < 10) {
 
 10 == 10;
 10 != 9;
+"foobar"
+"foo bar"
+[1, 2];
+{"foo": "bar"}
 `
 
 	tests := []struct {
@@ -33,39 +37,39 @@ if (5 < 10) {
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
-		{token.IDENTIFIER, "five"},
+		{token.IDENT, "five"},
 		{token.ASSIGN, "="},
 		{token.INT, "5"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "ten"},
+		{token.IDENT, "ten"},
 		{token.ASSIGN, "="},
 		{token.INT, "10"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "add"},
+		{token.IDENT, "add"},
 		{token.ASSIGN, "="},
 		{token.FUNCTION, "fn"},
 		{token.LPAREN, "("},
-		{token.IDENTIFIER, "x"},
+		{token.IDENT, "x"},
 		{token.COMMA, ","},
-		{token.IDENTIFIER, "y"},
+		{token.IDENT, "y"},
 		{token.RPAREN, ")"},
 		{token.LBRACE, "{"},
-		{token.IDENTIFIER, "x"},
+		{token.IDENT, "x"},
 		{token.PLUS, "+"},
-		{token.IDENTIFIER, "y"},
+		{token.IDENT, "y"},
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.SEMICOLON, ";"},
 		{token.LET, "let"},
-		{token.IDENTIFIER, "result"},
+		{token.IDENT, "result"},
 		{token.ASSIGN, "="},
-		{token.IDENTIFIER, "add"},
+		{token.IDENT, "add"},
 		{token.LPAREN, "("},
-		{token.IDENTIFIER, "five"},
+		{token.IDENT, "five"},
 		{token.COMMA, ","},
-		{token.IDENTIFIER, "ten"},
+		{token.IDENT, "ten"},
 		{token.RPAREN, ")"},
 		{token.SEMICOLON, ";"},
 		{token.BANG, "!"},
@@ -105,6 +109,19 @@ if (5 < 10) {
 		{token.NOT_EQ, "!="},
 		{token.INT, "9"},
 		{token.SEMICOLON, ";"},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.INT, "2"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOLON, ";"},
+		{token.LBRACE, "{"},
+		{token.STRING, "foo"},
+		{token.COLON, ":"},
+		{token.STRING, "bar"},
+		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
 
