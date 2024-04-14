@@ -12,8 +12,9 @@ const (
 	EOF     = "EOF"
 
 	// Identifiers + Literals
-	IDENTIFIER = "IDENTIFIER"
-	INT        = "INT"
+	IDENT  = "IDENT"
+	INT    = "INT"
+	STRING = "STRING"
 
 	// Operators
 	ASSIGN   = "="
@@ -36,6 +37,9 @@ const (
 	RPAREN    = ")"
 	LBRACE    = "{"
 	RBRACE    = "}"
+	LBRACKET  = "["
+	RBRACKET  = "]"
+	COLON     = ":"
 
 	// Keywords
 	FUNCTION = "FUNCTION"
@@ -61,5 +65,5 @@ func LookupIdentifier(ident string) TokenType {
 	if tok, ok := Keywords[ident]; ok {
 		return tok
 	}
-	return IDENTIFIER
+	return IDENT
 }

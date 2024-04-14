@@ -179,3 +179,50 @@ func (ce *CallExpression) String() string {
 	}
 	return fmt.Sprintf("%s(%s)", ce.Function.String(), strings.Join(args, ", "))
 }
+
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
+func (s *StringLiteral) TokenLiteral() string { return s.Token.Literal }
+func (s *StringLiteral) String() string { return s.Token.Literal }
+
+type ArrayLiteral struct {
+	Token token.Token
+	Elements []Expression
+}
+
+func (a *ArrayLiteral) TokenLiteral() string { return a.Token.Literal }
+func (a *ArrayLiteral) String() string {
+	elements := make([]string, 0, len(a.Elements))
+	for _, element := range a.Elements {
+		elements = append(elements, element.String())
+	}
+	return fmt.Sprintf("[%s]", strings.Join(elements, ", "))
+}
+
+type IndexExpression struct {
+	Token token.Token
+	Left Expression
+	Index Expression
+}
+
+func (ie *IndexExpression) TokenLiteral() string { return ie.Token.Literal }
+func (ie *IndexExpression) String() string { 
+	return fmt.Sprintf("(%s[%s])", ie.Left.String(), ie.Index.String())
+}
+
+type HashLiteral struct {
+	Token token.Token
+	Pairs map[Expression]Expression
+}
+
+func (hl *HashLiteral) TokenLiteral() string { return hl.Token.Literal }
+func (hl *HashLiteral) String() string { 
+	pairs := make([]string, 0, len(hl.Pairs))
+	for key, value := range hl.Pairs {
+		pairs = append(pairs, key.String() + ":" + value.String())
+	}
+	return fmt.Sprintf("{%s}", strings.Join(pairs, ", "))
+}

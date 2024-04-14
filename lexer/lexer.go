@@ -82,6 +82,14 @@ func (lex *Lexer) NextToken() token.Token {
 		return newTokenWithChar(token.LBRACE)
 	case '}':
 		return newTokenWithChar(token.RBRACE)
+	case '[':
+		return newTokenWithChar(token.LBRACKET)
+	case ']':
+		return newTokenWithChar(token.RBRACKET)
+	case '"':
+		return token.Token{Type: token.STRING, Literal: lex.readString()}
+	case ':':
+		return newTokenWithChar(token.COLON)
 	case 0:
 		return token.Token{Type: token.EOF, Literal: ""}
 	}
@@ -129,6 +137,15 @@ func (lex *Lexer) readIdentifier() string {
 		lex.readChar()
 	}
 	return lex.input[start:lex.readPosition]
+}
+
+func (lex *Lexer) readString() string {
+	start := lex.readPosition
+	lex.readChar()
+	for lex.char != '"' && lex.char != 0 {
+		lex.readChar()
+	}
+	return lex.input[start:lex.position]
 }
 
 func isNumber(char byte) bool {
